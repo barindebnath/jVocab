@@ -38,7 +38,8 @@ const Pagination = (props) => {
   let lastPage = paginationRange[paginationRange.length - 1];
 
   const handleGoToBookmark = () => {
-    if (currentPageBookmark.length === 1) onPageChange(1);
+    if (!currentPageBookmark) alert("Bookmark not found. Click on word card to bookmark.");
+    else if (currentPageBookmark.length === 1) onPageChange(1);
     else {
       let intToString = currentPageBookmark.toString();
       let removeLastDigit = parseInt(intToString.substring(0, intToString.length - 1));
