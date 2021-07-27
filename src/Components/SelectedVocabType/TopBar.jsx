@@ -46,10 +46,10 @@ const HFlex = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 1rem;
+  padding-top: 0.5rem;
 `;
 
-const Text = styled.p`
+const Text = styled.h1`
   margin: 0;
   font-size: 1.5rem;
   font-family: BalooChettan2-SemiBold;

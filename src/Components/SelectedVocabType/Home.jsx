@@ -72,12 +72,15 @@ export default Home;
 const ScrollItems = styled.div`
   flex: 1;
   overflow: auto;
-  margin: -0.5rem 0;
+  margin: 0.5rem 0 0 0;
 `;
 
 const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-columns: ${() =>
+    document.documentElement.clientWidth > 768
+      ? "repeat(auto-fit, minmax(20rem, 1fr))"
+      : "repeat(auto-fit, minmax(15rem, 1fr))"};
   grid-gap: 1px;
 `;
 

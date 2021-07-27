@@ -1,12 +1,16 @@
+import { Suspense } from "react";
 import { vocabTypes } from "../../data/Vocabolary";
 import ListByType from "../ListByType";
 import TopBar from "../TopBar";
+import { Spinner } from "../../helperComponents/StyledTags";
 
 const Conjunction = () => {
   return (
     <>
       <TopBar title='Conjunction' />
-      <ListByType vocabType={vocabTypes.conjunction} />
+      <Suspense fallback={<Spinner />}>
+        <ListByType vocabType={vocabTypes.conjunction} />
+      </Suspense>
     </>
   );
 };

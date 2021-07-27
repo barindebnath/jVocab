@@ -9,6 +9,7 @@ import Miscellaneous from "./VocabPages/Miscellaneous";
 import Noun from "./VocabPages/Noun";
 import Numbers from "./VocabPages/Numbers";
 import Verb from "./VocabPages/Verb";
+import DefinitionLess from "./VocabPages/DefinitionLess";
 
 const SelectedVocabType = () => {
   const isSearchPanel = useSelector((state) => state.search.isSearchPanel);
@@ -46,6 +47,9 @@ const SelectedVocabType = () => {
           case "Verb":
             return <Verb />;
 
+          case "DefinitionLess":
+            return <DefinitionLess />;
+
           default:
             console.warn("current screen : " + currentScreen);
             return null;
@@ -59,11 +63,11 @@ export default SelectedVocabType;
 
 const MainContainer = styled.div`
   flex: 2;
-  padding: 0.5rem;
+  padding: 0 0.5rem;
   flex-direction: column;
   @media (max-width: 768px) {
     display: ${({ isSearchPanel, isNavPanel }) => (isSearchPanel || isNavPanel ? "none" : "flex")};
-    height: calc(100vh - 1rem);
+    height: calc(100vh);
   }
   @media (min-width: 769px) {
     display: flex;

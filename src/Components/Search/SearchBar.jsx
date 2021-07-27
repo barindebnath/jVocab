@@ -32,7 +32,10 @@ const SearchBar = () => {
         primaryColor={primaryColor}
         secondaryColor={secondaryColor}
         hoverColor={hoverColor}
-        onClick={() => dispatch(closeSearchPanel())}
+        onClick={() => {
+          dispatch(closeSearchPanel());
+          dispatch(setSearchValue(""));
+        }}
       >
         <FontAwesomeIcon icon={faTimes} />
       </CloseIcon>
@@ -45,6 +48,7 @@ export default SearchBar;
 const HFlex = styled.div`
   display: flex;
   align-items: center;
+  padding-top: 0.5rem;
 `;
 
 const SearchInput = styled.input`

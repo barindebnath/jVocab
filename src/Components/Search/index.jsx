@@ -1,8 +1,9 @@
+import { Suspense } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import SearchBar from "./SearchBar";
 import { setSearchLevel } from "../redux/searchSlice";
-import { HR } from "../helperComponents/StyledTags";
+import { HR, Spinner } from "../helperComponents/StyledTags";
 import RadioButton from "../helperComponents/RadioButton";
 import SearchedList from "./SearchedList";
 
@@ -36,24 +37,13 @@ const Search = () => {
 
       <HR primaryColor={primaryColor} />
 
-      {(() => {
-        switch (searchLevel) {
-          case "n5":
-            return <SearchedList jlptLevel='n5' />;
-          case "n4":
-            return <SearchedList jlptLevel='n4' />;
-          case "n3":
-            return <SearchedList jlptLevel='n3' />;
-          case "n2":
-            return <SearchedList jlptLevel='n2' />;
-          case "n1":
-            return <SearchedList jlptLevel='n1' />;
-
-          default:
-            console.log("Current search nav: " + searchLevel);
-            break;
-        }
-      })()}
+      <Suspense fallback={<Spinner />}>
+        <SearchedList jlptLevel='n5' />
+        <SearchedList jlptLevel='n4' />
+        <SearchedList jlptLevel='n3' />
+        <SearchedList jlptLevel='n2' />
+        <SearchedList jlptLevel='n1' />
+      </Suspense>
     </MainContainer>
   );
 };
@@ -62,7 +52,7 @@ export default Search;
 
 const MainContainer = styled.div`
   flex: 1;
-  padding: 0.5rem;
+  padding: 0 0.5rem;
   flex-direction: column;
   @media (max-width: 768px) {
     display: ${({ isSearchPanel, isNavPanel }) => (isNavPanel ? "none" : isSearchPanel ? "flex" : "none")};

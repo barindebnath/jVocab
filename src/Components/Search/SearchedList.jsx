@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { vocab } from "../data/Vocabolary";
 import { setTotalWordsFound } from "../redux/searchSlice";
 import WordCard from "../helperComponents/WordCard";
+import { Spinner } from "../helperComponents/StyledTags";
+import ListIsEmpty from "../helperComponents/ListIsEmpty";
 
 const SearchedList = ({ jlptLevel }) => {
   const searchValue = useSelector((state) => state.search.searchValue);
+  const searchLevel = useSelector((state) => state.search.searchLevel);
   const primaryColor = useSelector((state) => state.theme.primary);
   const secondaryColor = useSelector((state) => state.theme.secondary);
   const [isPageLoading, setIsPageLoading] = useState(false);
@@ -53,13 +56,17 @@ const SearchedList = ({ jlptLevel }) => {
   return (
     <>
       {isPageLoading ? (
-        <Spinner primaryColor={primaryColor} secondaryColor={secondaryColor} />
+        <div style={{ flex: 1, display: jlptLevel === searchLevel ? "block" : "none" }}>
+          <Spinner primaryColor={primaryColor} secondaryColor={secondaryColor} />
+        </div>
       ) : (
-        <ScrollItems>
+        <ScrollItems searchLevel={searchLevel} jlptLevel={jlptLevel}>
           <GridContainer>
-            {filteredData.length
-              ? filteredData.map((item, index) => <WordCard word={item} key={index} index={index} />)
-              : null}
+            {filteredData.length ? (
+              filteredData.map((item, index) => <WordCard word={item} key={index} index={index} />)
+            ) : (
+              <ListIsEmpty />
+            )}
           </GridContainer>
         </ScrollItems>
       )}
@@ -69,26 +76,8 @@ const SearchedList = ({ jlptLevel }) => {
 
 export default SearchedList;
 
-const rotate = keyframes`
- from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-`;
-
-const Spinner = styled.div`
-  border: ${({ secondaryColor }) => `1rem solid ${secondaryColor}`};
-  border-top: ${({ primaryColor }) => `1rem solid ${primaryColor}`};
-  border-radius: 50%;
-  width: 5rem;
-  height: 5rem;
-  margin: auto;
-  animation: ${rotate} 2s linear infinite;
-`;
-
 const ScrollItems = styled.div`
+  display: ${({ jlptLevel, searchLevel }) => (jlptLevel === searchLevel ? "block" : "none")};
   flex: 1;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
@@ -96,6 +85,6 @@ const ScrollItems = styled.div`
 
 const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  grid-template-columns: auto;
   grid-gap: 1rem;
 `;

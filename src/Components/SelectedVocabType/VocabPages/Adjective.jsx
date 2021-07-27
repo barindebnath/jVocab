@@ -1,4 +1,6 @@
+import { Suspense } from "react";
 import { vocabTypes } from "../../data/Vocabolary";
+import { Spinner } from "../../helperComponents/StyledTags";
 import ListByType from "../ListByType";
 import TopBar from "../TopBar";
 
@@ -6,7 +8,9 @@ const Adjective = () => {
   return (
     <>
       <TopBar title='Adjective' />
-      <ListByType vocabType={vocabTypes.adjective} />
+      <Suspense fallback={<Spinner />}>
+        <ListByType vocabType={vocabTypes.adjective} />
+      </Suspense>
     </>
   );
 };
