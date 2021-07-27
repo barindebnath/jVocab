@@ -1,6 +1,6 @@
 ## Learn Japanese Vocabolary
 
-barindebnath/github.io/jVocab
+https://barindebnath.github.io/jVocab/
 
 React.js
 Styled Components
