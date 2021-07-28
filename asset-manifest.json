@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/jVocab/static/css/main.d2a37c8b.chunk.css",
-    "main.js": "/jVocab/static/js/main.5bb75b8f.chunk.js",
-    "main.js.map": "/jVocab/static/js/main.5bb75b8f.chunk.js.map",
+    "main.js": "/jVocab/static/js/main.4600a1d6.chunk.js",
+    "main.js.map": "/jVocab/static/js/main.4600a1d6.chunk.js.map",
     "runtime-main.js": "/jVocab/static/js/runtime-main.fa387cda.js",
     "runtime-main.js.map": "/jVocab/static/js/runtime-main.fa387cda.js.map",
     "static/js/2.2b0e22a3.chunk.js": "/jVocab/static/js/2.2b0e22a3.chunk.js",
@@ -20,6 +20,6 @@
     "static/js/runtime-main.fa387cda.js",
     "static/js/2.2b0e22a3.chunk.js",
     "static/css/main.d2a37c8b.chunk.css",
-    "static/js/main.5bb75b8f.chunk.js"
+    "static/js/main.4600a1d6.chunk.js"
   ]
 }
