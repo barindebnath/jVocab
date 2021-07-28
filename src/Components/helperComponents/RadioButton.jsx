@@ -5,16 +5,17 @@ const RadioButton = ({ value, disabled, selectedValue, setValue }) => {
   const primaryColor = useSelector((state) => state.theme.primary);
   const secondaryColor = useSelector((state) => state.theme.secondary);
   const hoverColor = useSelector((state) => state.theme.hover);
+  const disableColor = useSelector((state) => state.theme.disable);
   const dispatch = useDispatch();
 
   return (
     <RadioInput
       active={selectedValue === value}
       disabled={disabled}
-      // htmlFor={value}
       primaryColor={primaryColor}
       secondaryColor={secondaryColor}
       hoverColor={hoverColor}
+      disableColor={disableColor}
     >
       <input
         type='radio'
@@ -39,7 +40,7 @@ const RadioInput = styled.label`
   color: ${({ active, secondaryColor }) => (active ? secondaryColor : false)};
   cursor: ${({ disabled }) => (disabled ? false : "pointer")};
   text-transform: capitalize;
-  color: ${({ disabled }) => (disabled ? "#d1d5db" : false)};
+  color: ${({ disabled, disableColor }) => (disabled ? disableColor : false)};
   font-family: BalooChettan2-SemiBold;
   &:hover {
     background-color: ${({ active, disabled, primaryColor, hoverColor }) =>

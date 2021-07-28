@@ -77,11 +77,13 @@ const ScrollItems = styled.div`
 
 const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: ${() =>
-    document.documentElement.clientWidth > 768
-      ? "repeat(auto-fit, minmax(20rem, 1fr))"
-      : "repeat(auto-fit, minmax(15rem, 1fr))"};
   grid-gap: 1px;
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  }
+  @media (min-width: 769px) {
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  }
 `;
 
 const GridItems = styled.div`

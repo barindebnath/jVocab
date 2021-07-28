@@ -12,6 +12,7 @@ const Pagination = (props) => {
   const primaryColor = useSelector((state) => state.theme.primary);
   const secondaryColor = useSelector((state) => state.theme.secondary);
   const hoverColor = useSelector((state) => state.theme.hover);
+  const disableColor = useSelector((state) => state.theme.disable);
   const currentPageBookmark = useSelector((state) => state.bookmark[`${jlptLevel}${currentScreen}`]);
   const [isGoTo, setIsGoTo] = useState(false);
   const [goToPageValue, setGoToPageValue] = useState("");
@@ -51,7 +52,7 @@ const Pagination = (props) => {
   };
 
   const handlePageNoSubmit = () => {
-    onPageChange(goToPageValue);
+    onPageChange(parseInt(goToPageValue));
     setIsGoTo(false);
   };
 
@@ -65,6 +66,7 @@ const Pagination = (props) => {
               primaryColor={primaryColor}
               secondaryColor={secondaryColor}
               hoverColor={hoverColor}
+              disableColor={disableColor}
               onClick={() => currentPage !== 1 && onPrevious()}
             >
               {previousLabel}
@@ -84,6 +86,7 @@ const Pagination = (props) => {
                   primaryColor={primaryColor}
                   secondaryColor={secondaryColor}
                   hoverColor={hoverColor}
+                  disableColor={disableColor}
                   onClick={() => pageNumber !== currentPage && onPageChange(pageNumber)}
                   key={pageNumber}
                 >
@@ -96,6 +99,7 @@ const Pagination = (props) => {
               primaryColor={primaryColor}
               secondaryColor={secondaryColor}
               hoverColor={hoverColor}
+              disableColor={disableColor}
               onClick={() => currentPage !== lastPage && onNext()}
             >
               {nextLabel}
@@ -119,7 +123,7 @@ const Pagination = (props) => {
 
         <GoToPageNo
           size='1'
-          tyle='tel'
+          inputmode='numeric'
           maxLength='2'
           placeholder={`Go To Page (Max ${lastPage})`}
           value={goToPageValue}
@@ -166,7 +170,7 @@ const PageNav = styled.div`
 const HScroll = styled.div`
   flex: 1;
   overflow-x: auto;
-  max-width: ${document.documentElement.clientWidth > 450 ? "auto" : "240px"};
+  max-width: ${document.documentElement.clientWidth > 450 ? "auto" : "calc(100vw - 1rem - 43px)"};
 `;
 
 const UL = styled.ul`
@@ -183,8 +187,8 @@ const LI = styled.li`
   font-family: BalooChettan2-SemiBold;
   cursor: ${({ disabled, active, dots }) => (active || disabled || dots ? "default" : "pointer")};
   background-color: ${({ active, primaryColor }) => (active ? primaryColor : "transparent")};
-  color: ${({ disabled, active, primaryColor, secondaryColor }) =>
-    active ? secondaryColor : disabled ? "#d1d5db" : primaryColor};
+  color: ${({ disabled, active, primaryColor, secondaryColor, disableColor }) =>
+    active ? secondaryColor : disabled ? disableColor : primaryColor};
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       background-color: ${({ active, disabled, primaryColor, dots, hoverColor }) =>
