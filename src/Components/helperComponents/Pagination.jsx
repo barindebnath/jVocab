@@ -31,8 +31,10 @@ const Pagination = (props) => {
       PageNavRef.current && setPageNavWidth(PageNavRef.current.getBoundingClientRect().width);
     };
     window.addEventListener("resize", handleResize, false);
+    PageNavRef.current && PageNavRef.current.getBoundingClientRect().width !== pageNavWidth && handleResize();
     return function cleanup() {
       window.removeEventListener("resize", handleResize, false);
+      PageNavRef.current && PageNavRef.current.getBoundingClientRect().width !== pageNavWidth && handleResize();
     };
   });
 
