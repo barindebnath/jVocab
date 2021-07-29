@@ -24,6 +24,7 @@ const ParentRoot = styled.div`
   font-family: BalooChettan2-Regular;
   background-color: ${({ secondaryColor }) => secondaryColor};
   color: ${({ primaryColor }) => primaryColor};
+  transition: background-color 0.5s;
   @media (max-width: 768px) {
     height: 100vh;
   }

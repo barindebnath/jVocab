@@ -89,6 +89,7 @@ const GridContainer = styled.div`
 const GridItems = styled.div`
   padding: 1rem;
   background-color: ${({ secondaryColor }) => secondaryColor};
+  transition: background-color 0.5s;
 `;
 
 const Title = styled.p`
