@@ -72,7 +72,7 @@ export default Home;
 const ScrollItems = styled.div`
   flex: 1;
   overflow: auto;
-  margin: 0.5rem 0 0 0;
+  margin: 0;
 `;
 
 const GridContainer = styled.div`

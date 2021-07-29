@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { usePagination, DOTS } from "./usePagination";
@@ -16,12 +16,24 @@ const Pagination = (props) => {
   const currentPageBookmark = useSelector((state) => state.bookmark[`${jlptLevel}${currentScreen}`]);
   const [isGoTo, setIsGoTo] = useState(false);
   const [goToPageValue, setGoToPageValue] = useState("");
+  const PageNavRef = useRef(null);
+  const [pageNavWidth, setPageNavWidth] = useState(null);
 
   const paginationRange = usePagination({
     currentPage,
     totalCount,
     siblingCount,
     pageSize,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      PageNavRef.current && setPageNavWidth(PageNavRef.current.getBoundingClientRect().width);
+    };
+    window.addEventListener("resize", handleResize, false);
+    return function cleanup() {
+      window.removeEventListener("resize", handleResize, false);
+    };
   });
 
   if (currentPage === 0 || paginationRange.length < 2) {
@@ -58,8 +70,8 @@ const Pagination = (props) => {
 
   return (
     <>
-      <PageNav isGoTo={isGoTo}>
-        <HScroll>
+      <PageNav isGoTo={isGoTo} ref={PageNavRef}>
+        <HScroll pageNavWidth={pageNavWidth}>
           <UL>
             <LI
               disabled={currentPage === 1}
@@ -170,7 +182,8 @@ const PageNav = styled.div`
 const HScroll = styled.div`
   flex: 1;
   overflow-x: auto;
-  max-width: ${document.documentElement.clientWidth > 450 ? "auto" : "calc(100vw - 1rem - 43px)"};
+  max-width: ${({ pageNavWidth }) =>
+    pageNavWidth && pageNavWidth > 470 ? "100%" : `calc(${pageNavWidth}px - 1rem - 43px)`};
 `;
 
 const UL = styled.ul`

@@ -1,16 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = { currentScreen: "Home", isNavPanel: false };
+const initialState = { currentScreen: localStorage.getItem("currentScreen") || "Home", isNavPanel: false };
 
 export const navSlice = createSlice({
   name: "nav",
   initialState,
   reducers: {
-    setCurrentScreen: (state, action) => ({
-      ...state,
-      currentScreen: action.payload,
-      isNavPanel: document.documentElement.clientWidth > 768,
-    }),
+    setCurrentScreen: (state, action) => {
+      localStorage.setItem("currentScreen", action.payload);
+      return {
+        ...state,
+        currentScreen: action.payload,
+        isNavPanel: document.documentElement.clientWidth > 768,
+      };
+    },
     openNavPanel: (state) => ({ ...state, isNavPanel: true }),
     closeNavPanel: (state) => ({ ...state, isNavPanel: false }),
   },
