@@ -35,7 +35,9 @@ const ListByType = ({ vocabType }) => {
   useEffect(() => {
     setIsPageLoading(true);
     const vocabByLevel = vocab.filter((word) => word.jlpt === jlptLevel);
-    const typeFiltered = vocabByLevel.filter((word) => vocabType.includes(word.type));
+    const typeFiltered = vocabByLevel.filter((word) =>
+      vocabType.map((string1) => word.type && word.type.split(",").includes(string1)).includes(true)
+    );
     setFilteredData([...typeFiltered]);
   }, [jlptLevel, vocabType]);
 

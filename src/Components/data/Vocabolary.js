@@ -4,7 +4,7 @@ export const vocabTypes = {
   adverb: ["adv"],
   adjective: ["adj", "adj-na", "adj-no", "adj-pn", "aux-adj", "na-adj", "pren-adj"],
   conjunction: ["conj"],
-  numbers: ["number", "num"],
+  numbers: ["num"],
   expression: ["expr"],
   miscellaneous: [
     "south-western half of Japan",
@@ -76,10 +76,7 @@ export const abbreviations = [
   {
     id: 6,
     name: "Numbers",
-    types: [
-      { shortForm: "number", longForm: "" },
-      { shortForm: "num", longForm: "number" },
-    ],
+    types: [{ shortForm: "num", longForm: "number" }],
     emoji: "#️⃣",
   },
   {
@@ -1572,7 +1569,7 @@ export const vocab = [
     definition: "nine",
     kana: "く",
     kanji: "九",
-    type: "number",
+    type: "num",
     jlpt: "n5",
   },
   {
@@ -4557,7 +4554,7 @@ export const vocab = [
     definition: "village",
     kana: "むら",
     kanji: "村",
-    type: "num",
+    type: "n",
     jlpt: "n5",
   },
   {

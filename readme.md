@@ -7,6 +7,7 @@ Styled Components
 Redux Toolkit
 PWA
 Responsive
+Lazy Loading
 
 Theming
 Dark mode
