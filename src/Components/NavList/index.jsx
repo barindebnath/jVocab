@@ -7,6 +7,7 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { closeNavPanel, setCurrentScreen } from "../redux/navSlice";
 import { setLevel } from "../redux/jlptLevelSlice";
 import { setDarkTheme, setLightTheme, setPrimaryColor } from "../redux/themeSlice";
+import { setListView } from "../redux/listViewSlice";
 import { HR } from "../helperComponents/StyledTags";
 import RadioButton from "../helperComponents/RadioButton";
 
@@ -19,6 +20,7 @@ const NavList = () => {
   const hoverColor = useSelector((state) => state.theme.hover);
   const isDarktheme = useSelector((state) => state.theme.isDarktheme);
   const colorPickerValue = useSelector((state) => state.theme.colorPickerValue);
+  const isScrollView = useSelector((state) => state.listView.isScrollView);
   const dispatch = useDispatch();
 
   const ThemeSwitch = () => {
@@ -122,6 +124,29 @@ const NavList = () => {
           />
         </div>
       </HFlex>
+
+      <HR primaryColor={primaryColor} />
+
+      <HFlex onChange={() => dispatch(setListView())}>
+        <ViewSwitch
+          active={isScrollView}
+          primaryColor={primaryColor}
+          secondaryColor={secondaryColor}
+          hoverColor={hoverColor}
+        >
+          <input type='radio' name='listView' checked={isScrollView} style={{ display: "none" }} />
+          Scroll View
+        </ViewSwitch>
+        <ViewSwitch
+          active={!isScrollView}
+          primaryColor={primaryColor}
+          secondaryColor={secondaryColor}
+          hoverColor={hoverColor}
+        >
+          <input type='radio' name='listView' checked={!isScrollView} style={{ display: "none" }} />
+          Pagination View
+        </ViewSwitch>
+      </HFlex>
     </MainContainer>
   );
 };
@@ -200,5 +225,22 @@ const ThemeIcon = styled.span`
   cursor: pointer;
   &:hover {
     background-color: ${({ hoverColor }) => hoverColor};
+  }
+`;
+
+const ViewSwitch = styled.label`
+  background-color: ${({ active, primaryColor }) => (active ? primaryColor : false)};
+  padding: 0.7rem 1rem;
+  border-radius: 0.5rem;
+  color: ${({ active, secondaryColor }) => (active ? secondaryColor : false)};
+  cursor: pointer;
+  text-transform: capitalize;
+  font-family: BalooChettan2-SemiBold;
+  &:hover {
+    background-color: ${({ active, primaryColor, hoverColor }) => (active ? primaryColor : hoverColor)};
+  }
+  &:active {
+    background-color: ${({ primaryColor }) => primaryColor};
+    color: ${({ secondaryColor }) => secondaryColor};
   }
 `;

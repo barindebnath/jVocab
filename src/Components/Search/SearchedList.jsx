@@ -4,14 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { vocab } from "../data/Vocabolary";
 import { setTotalWordsFound } from "../redux/searchSlice";
 import WordCard from "../helperComponents/WordCard";
-import { Spinner } from "../helperComponents/StyledTags";
 import ListIsEmpty from "../helperComponents/ListIsEmpty";
 
 const SearchedList = ({ jlptLevel }) => {
   const searchValue = useSelector((state) => state.search.searchValue);
   const searchLevel = useSelector((state) => state.search.searchLevel);
-  const primaryColor = useSelector((state) => state.theme.primary);
-  const secondaryColor = useSelector((state) => state.theme.secondary);
   const [isPageLoading, setIsPageLoading] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
   const dispatch = useDispatch();
@@ -55,11 +52,7 @@ const SearchedList = ({ jlptLevel }) => {
 
   return (
     <>
-      {isPageLoading ? (
-        <div style={{ flex: 1, display: jlptLevel === searchLevel ? "block" : "none" }}>
-          <Spinner primaryColor={primaryColor} secondaryColor={secondaryColor} />
-        </div>
-      ) : (
+      {isPageLoading ? null : (
         <ScrollItems searchLevel={searchLevel} jlptLevel={jlptLevel}>
           <GridContainer>
             {filteredData.length ? (

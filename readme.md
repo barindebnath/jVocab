@@ -12,3 +12,6 @@ Lazy Loading
 Theming
 Dark mode
 Light mode
+Pagination View
+Scroll View
+Bookmark

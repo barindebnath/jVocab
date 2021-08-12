@@ -6,7 +6,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faBookmark, faTimes, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const Pagination = (props) => {
-  const { onPageChange, totalCount, siblingCount = 1, currentPage, pageSize, previousLabel, nextLabel } = props;
+  const {
+    onPageChange,
+    totalCount,
+    siblingCount = 1,
+    currentPage,
+    pageSize,
+    previousLabel,
+    nextLabel,
+    isScrollView,
+    handleGoToItem,
+  } = props;
   const jlptLevel = useSelector((state) => state.jlptLevel.currentLevel);
   const currentScreen = useSelector((state) => state.nav.currentScreen);
   const primaryColor = useSelector((state) => state.theme.primary);
@@ -15,7 +25,9 @@ const Pagination = (props) => {
   const disableColor = useSelector((state) => state.theme.disable);
   const currentPageBookmark = useSelector((state) => state.bookmark[`${jlptLevel}${currentScreen}`]);
   const [isGoTo, setIsGoTo] = useState(false);
+  const [isScrollNavActive, setIsScrollNavActive] = useState(false);
   const [goToPageValue, setGoToPageValue] = useState("");
+  const [goToItemValue, setGoToItemValue] = useState("");
   const PageNavRef = useRef(null);
   const [pageNavWidth, setPageNavWidth] = useState(null);
 
@@ -70,7 +82,73 @@ const Pagination = (props) => {
     setIsGoTo(false);
   };
 
-  return (
+  const handleItemNoSubmit = () => {
+    handleGoToItem(goToItemValue);
+    setIsScrollNavActive(false);
+    setGoToItemValue("");
+  };
+
+  const handleScrollToBookmark = () => {
+    if (!currentPageBookmark) alert("Bookmark not found. Click on word card to bookmark.");
+    else {
+      handleGoToItem(currentPageBookmark);
+      setIsScrollNavActive(false);
+    }
+  };
+
+  return isScrollView ? (
+    <ScrollNav>
+      {isScrollNavActive ? (
+        <GoToNav isGoTo={true}>
+          <GoToBookmark primaryColor={primaryColor} secondaryColor={secondaryColor} onClick={handleScrollToBookmark}>
+            Open <FontAwesomeIcon icon={faBookmark} />
+          </GoToBookmark>
+
+          <GoToPageNo
+            size='1'
+            inputmode='numeric'
+            maxLength='4'
+            placeholder={`Go To Item (Max ${totalCount})`}
+            value={goToItemValue}
+            primaryColor={primaryColor}
+            onChange={(e) => setGoToItemValue(e.target.value.replace(/[^0-9]/g, ""))}
+          />
+
+          {goToItemValue.trim() &&
+          goToItemValue !== "0" &&
+          goToItemValue !== "00" &&
+          parseInt(goToItemValue) <= totalCount ? (
+            <SubmitNoIcon
+              primaryColor={primaryColor}
+              secondaryColor={secondaryColor}
+              hoverColor={hoverColor}
+              onClick={handleItemNoSubmit}
+            >
+              <FontAwesomeIcon icon={faArrowRight} />
+            </SubmitNoIcon>
+          ) : (
+            <CloseGoIcon
+              primaryColor={primaryColor}
+              secondaryColor={secondaryColor}
+              hoverColor={hoverColor}
+              onClick={() => setIsScrollNavActive(false)}
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </CloseGoIcon>
+          )}
+        </GoToNav>
+      ) : (
+        <OpenScrollNavIcon
+          primaryColor={primaryColor}
+          secondaryColor={secondaryColor}
+          hoverColor={hoverColor}
+          onClick={() => setIsScrollNavActive(true)}
+        >
+          <FontAwesomeIcon icon={faArrowLeft} />
+        </OpenScrollNavIcon>
+      )}
+    </ScrollNav>
+  ) : (
     <>
       <PageNav isGoTo={isGoTo} ref={PageNavRef}>
         <HScroll pageNavWidth={pageNavWidth}>
@@ -286,6 +364,30 @@ const SubmitNoIcon = styled.span`
   cursor: pointer;
   &:hover {
     background-color: ${({ hoverColor }) => hoverColor};
+  }
+  &:active {
+    background-color: ${({ primaryColor }) => primaryColor};
+    color: ${({ secondaryColor }) => secondaryColor};
+  }
+`;
+
+const ScrollNav = styled.div`
+  position: relative;
+`;
+
+const OpenScrollNavIcon = styled.span`
+  padding: 0.7rem 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  border: ${({ primaryColor }) => `3px solid ${primaryColor}`};
+  color: ${({ hoverColor }) => hoverColor};
+
+  &:hover {
+    background-color: ${({ hoverColor }) => hoverColor};
+    color: ${({ primaryColor }) => primaryColor};
   }
   &:active {
     background-color: ${({ primaryColor }) => primaryColor};

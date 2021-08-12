@@ -43,7 +43,7 @@ const WordCard = ({ word, index, withBookmark }) => {
             : "-"}
         </Text>
 
-        {withBookmark ? bookmark === index + 1 ? <FontAwesomeIcon icon={faBookmark} /> : null : null}
+        {withBookmark ? parseInt(bookmark) === index + 1 ? <FontAwesomeIcon icon={faBookmark} /> : null : null}
       </Row>
 
       <Row>
@@ -59,6 +59,7 @@ export default WordCard;
 
 const VFlex = styled.div`
   display: flex;
+  flex: 1;
   flex-direction: column;
   justify-content: space-evenly;
   background-color: ${({ isDarktheme, secondaryColor, primaryColor }) => (isDarktheme ? secondaryColor : primaryColor)};

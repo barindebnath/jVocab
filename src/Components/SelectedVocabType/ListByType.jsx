@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
@@ -6,18 +6,20 @@ import { useSelector } from "react-redux";
 import { vocab } from "../data/Vocabolary";
 import WordCard from "../helperComponents/WordCard";
 import Pagination from "../helperComponents/Pagination";
-import { Spinner } from "../helperComponents/StyledTags";
+// import { Spinner } from "../helperComponents/StyledTags";
 import ListIsEmpty from "../helperComponents/ListIsEmpty";
 
 const ListByType = ({ vocabType }) => {
   const jlptLevel = useSelector((state) => state.jlptLevel.currentLevel);
-  const primaryColor = useSelector((state) => state.theme.primary);
-  const secondaryColor = useSelector((state) => state.theme.secondary);
+  const isScrollView = useSelector((state) => state.listView.isScrollView);
+  // const primaryColor = useSelector((state) => state.theme.primary);
+  // const secondaryColor = useSelector((state) => state.theme.secondary);
   const [isPageLoading, setIsPageLoading] = useState(true);
   const [filteredData, setFilteredData] = useState([]);
   const [currentPageData, setCurrentPageData] = useState([]);
   const [currentPageNo, setCurrentPageNo] = useState(1);
   const itemPerPage = 10;
+  const itemRefs = useRef([]);
 
   useEffect(() => {
     const pageFiltered = filteredData.filter((work, index) =>
@@ -46,15 +48,32 @@ const ListByType = ({ vocabType }) => {
     setCurrentPageNo(selectedPage);
   };
 
+  const handleGoToItem = (int) => {
+    itemRefs.current[parseInt(int) - 1]
+      ? itemRefs.current[parseInt(int) - 1].scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        })
+      : console.log(itemRefs.current);
+  };
+
   return (
     <>
-      {isPageLoading ? (
-        <Spinner primaryColor={primaryColor} secondaryColor={secondaryColor} />
-      ) : (
+      {isPageLoading ? null : ( // <Spinner primaryColor={primaryColor} secondaryColor={secondaryColor} />
         <>
           <ScrollItems>
             <GridContainer>
-              {currentPageData.length ? (
+              {isScrollView ? (
+                filteredData.length ? (
+                  filteredData.map((item, index) => (
+                    <div key={index} ref={(el) => (itemRefs.current[index] = el)} style={{ display: "flex" }}>
+                      <WordCard word={item} index={index} withBookmark />
+                    </div>
+                  ))
+                ) : (
+                  <ListIsEmpty />
+                )
+              ) : currentPageData.length ? (
                 currentPageData.map((item, index) => (
                   <WordCard
                     word={item}
@@ -77,6 +96,8 @@ const ListByType = ({ vocabType }) => {
               totalCount={filteredData.length}
               pageSize={itemPerPage}
               onPageChange={handlePageClick}
+              isScrollView={isScrollView}
+              handleGoToItem={handleGoToItem}
             />
           )}
         </>
