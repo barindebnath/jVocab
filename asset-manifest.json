@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/jVocab/static/css/main.b5e707e6.chunk.css",
-    "main.js": "/jVocab/static/js/main.6bb34125.chunk.js",
-    "main.js.map": "/jVocab/static/js/main.6bb34125.chunk.js.map",
+    "main.js": "/jVocab/static/js/main.861bf5e0.chunk.js",
+    "main.js.map": "/jVocab/static/js/main.861bf5e0.chunk.js.map",
     "runtime-main.js": "/jVocab/static/js/runtime-main.fa387cda.js",
     "runtime-main.js.map": "/jVocab/static/js/runtime-main.fa387cda.js.map",
-    "static/js/2.2b0e22a3.chunk.js": "/jVocab/static/js/2.2b0e22a3.chunk.js",
-    "static/js/2.2b0e22a3.chunk.js.map": "/jVocab/static/js/2.2b0e22a3.chunk.js.map",
+    "static/js/2.e33db25c.chunk.js": "/jVocab/static/js/2.e33db25c.chunk.js",
+    "static/js/2.e33db25c.chunk.js.map": "/jVocab/static/js/2.e33db25c.chunk.js.map",
     "static/js/3.6d378061.chunk.js": "/jVocab/static/js/3.6d378061.chunk.js",
     "static/js/3.6d378061.chunk.js.map": "/jVocab/static/js/3.6d378061.chunk.js.map",
     "index.html": "/jVocab/index.html",
     "service-worker.js": "/jVocab/service-worker.js",
     "service-worker.js.map": "/jVocab/service-worker.js.map",
     "static/css/main.b5e707e6.chunk.css.map": "/jVocab/static/css/main.b5e707e6.chunk.css.map",
-    "static/js/2.2b0e22a3.chunk.js.LICENSE.txt": "/jVocab/static/js/2.2b0e22a3.chunk.js.LICENSE.txt",
+    "static/js/2.e33db25c.chunk.js.LICENSE.txt": "/jVocab/static/js/2.e33db25c.chunk.js.LICENSE.txt",
     "static/media/index.css": "/jVocab/static/media/Brusher.df09075c.ttf"
   },
   "entrypoints": [
     "static/js/runtime-main.fa387cda.js",
-    "static/js/2.2b0e22a3.chunk.js",
+    "static/js/2.e33db25c.chunk.js",
     "static/css/main.b5e707e6.chunk.css",
-    "static/js/main.6bb34125.chunk.js"
+    "static/js/main.861bf5e0.chunk.js"
   ]
 }
