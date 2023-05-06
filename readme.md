@@ -2,20 +2,19 @@
 
 https://barindebnath.github.io/jVocab/
 
-React.js
-Styled Components
-Redux Toolkit
-PWA
-Responsive
-Lazy Loading
+- React.js
+- Styled Components
+- Redux Toolkit
+- PWA
+- Responsive
+- Lazy Loading
 
-Theming
-Dark mode
-Light mode
-Pagination View
-Scroll View
-Bookmark
-
+- Theming
+- Dark mode
+- Light mode
+- Pagination View
+- Scroll View
+- Bookmark
 
 -----------------------
 
